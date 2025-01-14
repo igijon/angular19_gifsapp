@@ -13,9 +13,24 @@ export class GifsService {
     return [...this._tagsHistory]; //Copia por seguridad. Operador spread
   }
 
-  searchTag( tag: string ): void {
+  private organizeHistory(tag: string) {
+    tag = tag.toLowerCase();
+
+    //Voy a ver si el tag existe y si existe sólo lo quiero al principio
+    if ( this._tagsHistory.includes(tag) ) {
+      this._tagsHistory = this._tagsHistory.filter( (oldTag) => oldTag !== tag );
+    }
+
     this._tagsHistory.unshift(tag);
-    console.log(this._tagsHistory);
+
+    //Quiero tener un máximo de 10 en el histórico
+    this._tagsHistory = this._tagsHistory.splice(0, 10);
+  }
+
+  searchTag( tag: string ): void {
+    if ( tag.length === 0 ) return;
+    this.organizeHistory(tag);
+    
     
   } 
 }
