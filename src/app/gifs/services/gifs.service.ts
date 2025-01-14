@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
 
 @Injectable({
   providedIn: 'root'
 }) //Servicio disponible en toda la aplicación. Si no, tendríamos que añadirlo en el módulo, en providers.
 export class GifsService {
 
+  public gifList: Gif[] = [];
+  
   private _tagsHistory: string[] = [];
   private giphy_api_key: string = 'UJhtmqNexoXg8nxMJB20TFS5xltag48Z';  
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
@@ -37,14 +40,19 @@ export class GifsService {
     // fetch('https://api.giphy.com/v1/gifs/search?api_key=UJhtmqNexoXg8nxMJB20TFS5xltag48Z&q=valorant&limit=10')
     //   .then( resp => resp.json() )
     //   .then( data => console.log(data) );
+    
+    
     //Observable: objeto que a lo largo del tiempo podemos hacer que emita valores. Si nos suscribimos a un observable
     //somos alertados cuando ese objeto emite valores.
     const params = new HttpParams()
       .set('api_key', this.giphy_api_key)
       .set('limit', 10)
       .set('q', tag)
-    this.http.get( `${this.serviceUrl}/search`, {params} )
-      .subscribe( resp => console.log(resp) );
+    this.http.get<SearchResponse>( `${this.serviceUrl}/search`, {params} )
+      .subscribe( resp => {
+        this.gifList = resp.data;
+        console.log( {gifs: this.gifList} )
+      } );
       
   } 
 }
