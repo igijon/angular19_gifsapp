@@ -31,6 +31,11 @@ export class GifsService {
 
     //Quiero tener un máximo de 10 en el histórico
     this._tagsHistory = this._tagsHistory.splice(0, 10);
+    this.saveLocalStorage();
+  }
+
+  private saveLocalStorage(): void {
+    localStorage.setItem('history', JSON.stringify(this._tagsHistory));
   }
 
   searchTag( tag: string ): void {
@@ -51,7 +56,6 @@ export class GifsService {
     this.http.get<SearchResponse>( `${this.serviceUrl}/search`, {params} )
       .subscribe( resp => {
         this.gifList = resp.data;
-        console.log( {gifs: this.gifList} )
       } );
       
   } 
