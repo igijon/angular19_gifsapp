@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 }) //Servicio disponible en toda la aplicación. Si no, tendríamos que añadirlo en el módulo, en providers.
 export class GifsService {
 
   private _tagsHistory: string[] = [];
+  private giphy_api_key: string = 'UJhtmqNexoXg8nxMJB20TFS5xltag48Z';  
 
   constructor() { }
 
