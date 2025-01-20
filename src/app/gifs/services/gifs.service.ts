@@ -10,8 +10,8 @@ export class GifsService {
   public gifList: Gif[] = [];
   
   private _tagsHistory: string[] = [];
-  private giphy_api_key: string = 'UJhtmqNexoXg8nxMJB20TFS5xltag48Z';  
-  private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
+  private _giphy_api_key: string = 'UJhtmqNexoXg8nxMJB20TFS5xltag48Z';  
+  private _serviceUrl: string = 'https://api.giphy.com/v1/gifs';
 
   constructor(private http: HttpClient) {
     this.loadLocalStorage();
@@ -60,10 +60,10 @@ export class GifsService {
     //Observable: objeto que a lo largo del tiempo podemos hacer que emita valores. Si nos suscribimos a un observable
     //somos alertados cuando ese objeto emite valores.
     const params = new HttpParams()
-      .set('api_key', this.giphy_api_key)
+      .set('api_key', this._giphy_api_key)
       .set('limit', 10)
       .set('q', tag)
-    this.http.get<SearchResponse>( `${this.serviceUrl}/search`, {params} )
+    this.http.get<SearchResponse>( `${this._serviceUrl}/search`, {params} )
       .subscribe( resp => {
         this.gifList = resp.data;
       } );

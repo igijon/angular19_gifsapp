@@ -1,4 +1,3 @@
-//Quicktype.io
 export interface SearchResponse {
     data:       Gif[];
     meta:       Meta;
@@ -134,7 +133,7 @@ export enum DisplayName {
 }
 
 export enum Username {
-    Playvalorant = "playvalorant",
+    Valorant = "valorant",
     ValorantEsports = "Valorant_Esports",
     Xbox = "xbox",
 }
